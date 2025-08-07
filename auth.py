@@ -5,3 +5,8 @@ from datetime import datetime
 app = Flask (__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.bd'
 db = SQLAlchemy(app)
+
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=true)
+    firstname = db.Column(db.String(400), nullable= False)
+    
