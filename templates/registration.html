@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Registration</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">User Registration</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+
+  <!-- FORM -->
+  <div class="container mt-4">
+    <h2>Register New User</h2>
+    <form action="/register" method="POST" class="mb-4">
+      <div class="form-group mb-2">
+        <input type="text" name="firstname" class="form-control" placeholder="First Name" required>
+      </div>
+      <div class="form-group mb-2">
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="form-group mb-2">
+        <input type="text" name="address" class="form-control" placeholder="Address" required>
+      </div>
+      <div class="form-group mb-2">
+        <input type="password" name="password_hash" class="form-control" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-success mt-2">Register</button>
+    </form>
+  </div>
+
+  <!-- USERS TABLE -->
+  <div class="container mt-4">
+    <h2>Registered Users</h2>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>First Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Registered On</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in fname %}
+        <tr>
+          <td>{{ user.firstname }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.address }}</td>
+          <td>{{ user.date_created.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+{% endblock %}
