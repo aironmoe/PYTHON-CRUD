@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 auth_bp = Blueprint("auth", __name__, template_folder="templates")
 
@@ -28,12 +29,15 @@ def register():
         address = request.form['address']
         password_hash = request.form['password_hash']
 
+        hashed_password = generate_password_hash(password, method='sha256')
+
+
         try:
             new_user = Users(
                 firstname=first_name,
                 email=email,
                 address=address,
-                password_hash=password_hash
+                password_hash=hashed_password
             )
             db.session.add(new_user)
             db.session.commit()
