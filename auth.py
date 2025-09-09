@@ -20,8 +20,8 @@ class Users(db.Model):
     def __repr__(self):
         return '<users %r>' % self.id
 
-@app.route('/', methods=['POST', 'GET'])
-def index():
+@app.route('/register', methods=['POST', 'GET'])
+def register():
     if request.method == 'POST':
         first_name = request.form['firstname']
         email = request.form['email']
@@ -37,7 +37,7 @@ def index():
             )
             db.session.add(new_user)
             db.session.commit()
-            return redirect('/')
+            return redirect('/register')
         except:
             return 'There was an issue adding the User'
     else:
