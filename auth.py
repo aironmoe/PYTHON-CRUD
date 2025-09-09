@@ -27,10 +27,10 @@ def register():
         first_name = request.form['firstname']
         email = request.form['email']
         address = request.form['address']
-        password_hash = request.form['password_hash']
+        password = request.form['password_hash']
 
-        hashed_password = generate_password_hash(password, method='sha256')
-
+        # Hash password properly
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
         try:
             new_user = Users(
@@ -50,13 +50,13 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
+    if request.method == 'POST':
         email = request.form['email']
         password_hash = request.form['password_hash']
 
         user = Users.query.filter_by(email=email, password_hash=password).first()
 
-        if
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
