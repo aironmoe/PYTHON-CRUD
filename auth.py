@@ -44,6 +44,15 @@ def register():
         fname = Users.query.order_by(Users.date_created).all()
         return render_template('registration.html', fname=fname)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        email = request.form['email']
+        password_hash = request.form['password_hash']
+
+        user = Users.query.filter_by(email=email, password_hash=password).first()
+
+        if
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
